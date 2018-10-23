@@ -1,4 +1,4 @@
-import { interval } from 'rxjs';
+import { interval, zip, combineLatest, merge } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 
 const values1 = interval(10).pipe(take(5));
@@ -12,7 +12,11 @@ const values2 = interval(20).pipe(
 // i.e. the first value will be "010" (0 from values1 and 10 from values2)
 export function combineOneByOne() {
   ///////// Write the solution in this block
-  return null;
+  return zip(
+    values1,
+    values2,
+    (v1, v2) => `${ v1 }${ v2 }`
+  );
   ///////// Write the solution in this block
 }
 
@@ -20,13 +24,17 @@ export function combineOneByOne() {
 // Each values should be combined in the same way as in the previous example
 export function combineMostRecentValues() {
   ///////// Write the solution in this block
-  return null;
+  return combineLatest(
+    values1,
+    values2,
+    (v1, v2) => `${ v1 }${ v2 }`
+  );
   ///////// Write the solution in this block
 }
 
 // You don't need to combine any values in this exercise. Just join `values1` and `values2` into one Observable
 export function allValuesInterleaved() {
   ///////// Write the solution in this block
-  return null;
+  return merge(values1, values2);
   ///////// Write the solution in this block
 }
